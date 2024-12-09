@@ -9,7 +9,36 @@ set(SDL2_DIR ${PROJECT_SOURCE_DIR}/dependencies/SDL2-2.30.10)
 
 find_package(SDL2 REQUIRED)
 
+set(SIMULATOR_CONSOLE_TYPE_STRING "Simulator (console)")
+set(SIMULATOR_GUI_TYPE_STRING "Simulator (with GUI)")
+set(VIEWER_NO_GUI_TYPE_STRING "Viewer (no GUI)")
+set(VIEWER_GUI_TYPE_STRING "Viewer (with GUI)")
+set(SIMULATOR_VIEWER_GUI_TYPE_STRING "Simulator + Viewer (with GUI)")
+
+set(APPLICATION_TYPE ${SIMULATOR_CONSOLE_TYPE_STRING} CACHE STRING "Application type")
+set_property(CACHE APPLICATION_TYPE PROPERTY STRINGS
+    ${SIMULATOR_CONSOLE_TYPE_STRING}
+    ${SIMULATOR_GUI_TYPE_STRING}
+    ${VIEWER_NO_GUI_TYPE_STRING}
+    ${VIEWER_GUI_TYPE_STRING}
+    ${SIMULATOR_VIEWER_GUI_TYPE_STRING}
+)
+
+if(APPLICATION_TYPE STREQUAL ${SIMULATOR_CONSOLE_TYPE_STRING})
+    # TODO:
+elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_GUI_TYPE_STRING})
+    # TODO:
+elseif(APPLICATION_TYPE STREQUAL ${VIEWER_NO_GUI_TYPE_STRING})
+    # TODO:
+elseif(APPLICATION_TYPE STREQUAL ${VIEWER_GUI_TYPE_STRING})
+    # TODO:
+else()
+    # TODO:
+endif()
+
 add_executable(RRS
+    include/logging.h
+    src/logging.cpp
     src/main.cpp
 )
 
@@ -19,6 +48,5 @@ target_link_libraries(RRS PRIVATE
 )
 
 target_include_directories(RRS PRIVATE
-    ${PROJECT_BINARY_DIR}
     include
 )
