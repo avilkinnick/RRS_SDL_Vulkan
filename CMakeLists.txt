@@ -5,7 +5,9 @@ project(RRS LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SDL2_DIR ${PROJECT_SOURCE_DIR}/dependencies/SDL2-2.30.10)
+if(WIN32)
+    set(SDL2_DIR ${PROJECT_SOURCE_DIR}/dependencies/SDL2-2.30.10/cmake)
+endif()
 
 find_package(SDL2 REQUIRED)
 
@@ -38,8 +40,10 @@ endif()
 
 add_executable(RRS
     include/logging.h
+    include/sdl_wrappers/SdlInstance.h
     src/logging.cpp
     src/main.cpp
+    src/sdl_wrappers/SdlInstance.cpp
 )
 
 target_link_libraries(RRS PRIVATE
