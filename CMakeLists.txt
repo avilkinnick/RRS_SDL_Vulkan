@@ -59,9 +59,11 @@ else()
 endif()
 
 add_executable(RRS
+    include/Logger.h
     include/logging.h
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
+    src/Logger.cpp
     src/logging.cpp
     src/main.cpp
     src/sdl_wrappers/SdlInstance.cpp

@@ -16,8 +16,8 @@
         va_end(args); \
     }
 
-LOG_IMPLEMENTATION(warning, "\033[1;33m")
 LOG_IMPLEMENTATION(error, "\033[1;31m")
+LOG_IMPLEMENTATION(warning, "\033[1;33m")
 
 void log_sdl_error()
 {
