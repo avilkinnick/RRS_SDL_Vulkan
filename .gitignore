@@ -1,3 +1,4 @@
 *.cache*
 *.vs*
 build/
+include/cmake_defines.h
