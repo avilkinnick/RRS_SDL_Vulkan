@@ -8,6 +8,8 @@
 
 #include "cmake_defines.h"
 
+std::map<std::string_view, std::ofstream> Logger::logs;
+std::string_view Logger::current_log_name;
 std::ostream* Logger::current_log = &std::cerr;
 
 Logger& Logger::get_instance()

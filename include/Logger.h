@@ -18,6 +18,7 @@ private:
 
 private:
     static std::map<std::string_view, std::ofstream> logs;
+    static std::string_view current_log_name;
     static std::ostream* current_log;
 };
 

@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
-    set(SDL2_DIR ${PROJECT_SOURCE_DIR}/dependencies/SDL2-2.30.10/cmake)
+    set(SDL2_DIRECTORY ${PROJECT_SOURCE_DIR}/dependencies/SDL2-2.30.10)
+    set(SDL2_DIR ${SDL2_DIRECTORY}/cmake)
+    configure_file(${SDL2_DIRECTORY}/lib/x64/SDL2.dll SDL2.dll COPYONLY)
 endif()
 
 find_package(SDL2 REQUIRED)
