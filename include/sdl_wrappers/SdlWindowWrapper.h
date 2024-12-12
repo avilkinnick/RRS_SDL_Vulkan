@@ -1,5 +1,5 @@
-#ifndef SDL_WINDOW_WRAPPER_H
-#define SDL_WINDOW_WRAPPER_H
+#ifndef SDL_WRAPPERS_SDL_WINDOW_WRAPPER_H
+#define SDL_WRAPPERS_SDL_WINDOW_WRAPPER_H
 
 #include <SDL_stdinc.h>
 
@@ -18,4 +18,4 @@ private:
     SDL_Window* window;
 };
 
-#endif // SDL_WINDOW_WRAPPER_H
+#endif // SDL_WRAPPERS_SDL_WINDOW_WRAPPER_H

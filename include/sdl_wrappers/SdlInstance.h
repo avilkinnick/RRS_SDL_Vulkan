@@ -1,5 +1,5 @@
-#ifndef SDL_INSTANCE_H
-#define SDL_INSTANCE_H
+#ifndef SDL_WRAPPERS_SDL_INSTANCE_H
+#define SDL_WRAPPERS_SDL_INSTANCE_H
 
 #include <SDL_stdinc.h>
 
@@ -10,4 +10,4 @@ public:
     ~SdlInstance();
 };
 
-#endif // SDL_INSTANCE_H
+#endif // SDL_WRAPPERS_SDL_INSTANCE_H
