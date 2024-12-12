@@ -2,7 +2,10 @@
 
 #include <cstdarg>
 #include <cstdio>
+#include <cstring>
+#include <ctime>
 
+#include <chrono>
 #include <exception>
 #include <map>
 #include <regex>
@@ -17,11 +20,17 @@
 #define LOG_IMPLEMENTATION(category, ansi_escape_code) \
     void Logger::log_##category(const char* format, ...) \
     { \
+    \
+        auto current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); \
+        auto current_time_string = std::ctime(&current_time); \
+        current_time_string[strlen(current_time_string) - 1] = '\0'; \
+        \
         if (log_to_console) \
         { \
             std::va_list args; \
             va_start(args, format); \
             std::fprintf(stderr, ansi_escape_code); \
+            std::fprintf(stderr, "[%s] ", current_time_string); \
             std::vfprintf(stderr, format, args); \
             std::fprintf(stderr, "\033[0m\n"); \
             va_end(args); \
@@ -31,6 +40,7 @@
         { \
             std::va_list args; \
             va_start(args, format); \
+            std::fprintf(log_file, "[%s] ", current_time_string); \
             std::vfprintf(log_file, format, args); \
             std::fprintf(log_file, "\n"); \
             va_end(args); \
