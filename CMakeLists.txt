@@ -5,13 +5,17 @@ project(RRS LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(DEPENDENCIES_DIR ${PROJECT_SOURCE_DIR}/dependencies)
+
 if(WIN32)
-    set(SDL2_DIRECTORY ${PROJECT_SOURCE_DIR}/dependencies/SDL2-2.30.10)
+    set(SDL2_DIRECTORY ${DEPENDENCIES_DIR}/SDL2-2.30.10)
     set(SDL2_DIR ${SDL2_DIRECTORY}/cmake)
     configure_file(${SDL2_DIRECTORY}/lib/x64/SDL2.dll SDL2.dll COPYONLY)
 endif()
 
 find_package(SDL2 REQUIRED)
+
+set(PUGI_XML_SOURCES ${DEPENDENCIES_DIR}/pugixml-1.14/src)
 
 set(RESOURCES_DIR ${PROJECT_SOURCE_DIR}/resources)
 set(CONFIGS_DIR ${RESOURCES_DIR}/cfg)
@@ -70,6 +74,7 @@ add_executable(RRS
     src/sdl_wrappers/SdlInstance.cpp
     src/sdl_wrappers/SdlWindowWrapper.cpp
     src/simulator/Application.cpp
+    ${PUGI_XML_SOURCES}/pugixml.cpp
 )
 
 target_link_libraries(RRS PRIVATE
@@ -78,5 +83,6 @@ target_link_libraries(RRS PRIVATE
 )
 
 target_include_directories(RRS PRIVATE
+    ${PUGI_XML_SOURCES}
     include
 )
