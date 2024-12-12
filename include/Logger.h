@@ -20,6 +20,7 @@ public:
 
     void log_error(const char* format, ...);
     void log_warning(const char* format, ...);
+    void log_info(const char* format, ...);
     void log_message(const char* format, ...);
 
 #ifndef NDEBUG
@@ -29,6 +30,9 @@ public:
 #endif
 
     void log_sdl_error();
+
+public:
+    static constexpr const char* separator = "========================================================================";
 
 private:
     Logger() = default;

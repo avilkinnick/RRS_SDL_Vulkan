@@ -62,14 +62,14 @@ endif()
 
 add_executable(RRS
     include/Logger.h
-    include/logging.h
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
+    include/simulator/Application.h
     src/Logger.cpp
-    src/logging.cpp
     src/main.cpp
     src/sdl_wrappers/SdlInstance.cpp
     src/sdl_wrappers/SdlWindowWrapper.cpp
+    src/simulator/Application.cpp
 )
 
 target_link_libraries(RRS PRIVATE

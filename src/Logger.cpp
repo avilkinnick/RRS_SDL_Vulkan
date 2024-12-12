@@ -105,6 +105,7 @@ void Logger::detach_log(std::string_view log_name)
 
 LOG_IMPLEMENTATION(error, "\033[1;31m")
 LOG_IMPLEMENTATION(warning, "\033[1;33m")
+LOG_IMPLEMENTATION(info, "\033[0m")
 LOG_IMPLEMENTATION(message, "\033[0m")
 
 #ifndef NDEBUG

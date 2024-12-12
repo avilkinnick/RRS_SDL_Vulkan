@@ -5,14 +5,14 @@
 #include <SDL_stdinc.h>
 #include <SDL_video.h>
 
-#include "logging.h"
+#include "Logger.h"
 
 SdlWindowWrapper::SdlWindowWrapper(const char* title, int x, int y, int width, int height, Uint32 flags)
     : window(SDL_CreateWindow(title, x, y, width, height, flags))
 {
     if (!window)
     {
-        log_sdl_error();
+        Logger::get_instance().log_sdl_error();
         throw std::runtime_error("Failed to create SDL window");
     }
 }
