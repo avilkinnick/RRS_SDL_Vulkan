@@ -1,4 +1,4 @@
-#include "Logger.h"
+#include "logging/Logger.h"
 
 #include <cstdarg>
 #include <cstdio>
@@ -23,28 +23,28 @@
         char* current_time_string; \
         if (log_time) \
         { \
-            auto current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); \
+            std::time_t current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); \
             current_time_string = std::ctime(&current_time); \
             current_time_string[strlen(current_time_string) - 1] = '\0'; \
         } \
         \
         if (log_to_console) \
         { \
-            std::va_list args; \
-            va_start(args, format); \
             std::fprintf(stderr, ansi_escape_code); \
             if (log_time) \
             { \
                 std::fprintf(stderr, "[%s] ", current_time_string); \
             } \
+            std::va_list args; \
+            va_start(args, format); \
             std::vfprintf(stderr, format, args); \
-            std::fprintf(stderr, "\033[0m\n"); \
             va_end(args); \
+            std::fprintf(stderr, "\033[0m\n"); \
         } \
         \
-        for (auto& [log_name, log_file] : log_files) \
+        for (auto& [log_name, log_descriptor] : log_descriptors) \
         { \
-            if (log_file.category_flags & LOG_CATEGORY_FLAGS_##category) \
+            if (log_file.category_flags & LogCategoryFlags::##category) \
             { \
                 std::va_list args; \
                 va_start(args, format); \

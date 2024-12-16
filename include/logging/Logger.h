@@ -1,18 +1,11 @@
 #ifndef LOGGING_LOGGER_H
 #define LOGGING_LOGGER_H
 
-#include <cstdio>
-
 #include <map>
 #include <string_view>
 
 #include "logging/LogCategoryFlags.h"
-
-struct LogFile
-{
-    FILE* file;
-    LogCategoryFlags category_flags;
-};
+#include "logging/LogDescriptor.h"
 
 class Logger
 {
@@ -46,9 +39,7 @@ private:
     Logger() = default;
 
 private:
-    std::map<std::string_view, LogFile> log_files;
+    std::map<std::string_view, LogDescriptor> log_descriptors;
 };
 
 #endif // LOGGING_LOGGER_H
-
-// TODO: Rename LogFile?

@@ -4,14 +4,8 @@
 #include <cstdio>
 
 #include "logging/LogCategoryFlags.h"
-
-class LogDescriptor
+struct LogDescriptor
 {
-public:
-    LogDescriptor(FILE* file, LogCategoryFlags category_flags);
-    ~LogDescriptor();
-
-public:
     FILE* file;
     LogCategoryFlags category_flags;
 };

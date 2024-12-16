@@ -60,11 +60,13 @@ elseif(APPLICATION_TYPE STREQUAL ${VIEWER_NO_GUI_TYPE_STRING})
     # TODO:
 elseif(APPLICATION_TYPE STREQUAL ${VIEWER_GUI_TYPE_STRING})
     # TODO:
-else()
+elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_VIEWER_GUI_TYPE_STRING})
     # TODO:
 endif()
 
 add_executable(RRS
+    include/logging/LogCategoryFlags.h
+    include/logging/LogDescriptor.h
     include/logging/Logger.h
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
