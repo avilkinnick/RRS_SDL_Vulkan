@@ -65,14 +65,12 @@ elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_VIEWER_GUI_TYPE_STRING})
 endif()
 
 add_executable(RRS
-    include/logging/LogCategoryFlags.h
-    include/logging/LogDescriptor.h
-    include/logging/Logger.h
+    include/Logger.h
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
     include/simulator/Application.h
     src/main.cpp
-    src/logging/Logger.cpp
+    src/Logger.cpp
     src/sdl_wrappers/SdlInstance.cpp
     src/sdl_wrappers/SdlWindowWrapper.cpp
     src/simulator/Application.cpp

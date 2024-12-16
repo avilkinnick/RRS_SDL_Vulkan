@@ -1,9 +1,8 @@
-#include "logging/Logger.h"
+#include "Logger.h"
 
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
-#include <ctime>
+#include "cmake_defines.h"
+
+#include <SDL_error.h>
 
 #include <chrono>
 #include <exception>
@@ -13,48 +12,49 @@
 #include <string>
 #include <string_view>
 
-#include <SDL_error.h>
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
+#include <ctime>
 
-#include "cmake_defines.h"
+#define capitalize_error ERROR
+#define capitalize_warning WARNING
+#define capitalize_info INFO
+#define capitalize_debug DEBUG
+
+#define CONCAT(A, B) A##B
+#define CONCAT_EXPAND(A, B) CONCAT(A, B)
+
+#define PRINT_ARGS(out, format, ...); \
+    std::va_list args; \
+    va_start(args, format); \
+    std::vfprintf(out, format, args); \
+    va_end(args); \
 
 #define LOG_IMPLEMENTATION(category, ansi_escape_code) \
     void Logger::log_##category(const char* format, ...) \
     { \
-        char* current_time_string; \
-        if (log_time) \
-        { \
-            std::time_t current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); \
-            current_time_string = std::ctime(&current_time); \
-            current_time_string[strlen(current_time_string) - 1] = '\0'; \
-        } \
-        \
         if (log_to_console) \
         { \
             std::fprintf(stderr, ansi_escape_code); \
-            if (log_time) \
-            { \
-                std::fprintf(stderr, "[%s] ", current_time_string); \
-            } \
-            std::va_list args; \
-            va_start(args, format); \
-            std::vfprintf(stderr, format, args); \
-            va_end(args); \
+            PRINT_ARGS(stderr, format, __VA_ARGS__) \
             std::fprintf(stderr, "\033[0m\n"); \
         } \
         \
         for (auto& [log_name, log_descriptor] : log_descriptors) \
         { \
-            if (log_file.category_flags & LogCategoryFlags::##category) \
+            if (log_descriptor.category_flags & LOG_CATEGORY_FLAGS_##category) \
             { \
-                std::va_list args; \
-                va_start(args, format); \
-                if (log_time) \
+                if (log_descriptor.print_time) \
                 { \
-                    std::fprintf(log_file.file, "[%s] ", current_time_string); \
+                    std::time_t current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); \
+                    char* current_time_string = std::ctime(&current_time); \
+                    current_time_string[strlen(current_time_string) - 1] = '\0'; \
+                    std::fprintf(log_descriptor.file, "[%s] ", current_time_string); \
                 } \
-                std::vfprintf(log_file.file, format, args); \
-                std::fprintf(log_file.file, "\n"); \
-                va_end(args); \
+                \
+                PRINT_ARGS(log_descriptor.file, format, __VA_ARGS__) \
+                std::fprintf(log_descriptor.file, "\n"); \
             } \
         } \
     }
@@ -67,17 +67,17 @@ Logger& Logger::get_instance()
 
 Logger::~Logger()
 {
-    for (auto& [log_name, log_file] : log_files)
+    for (auto& [log_name, log_descriptor] : log_descriptors)
     {
-        std::fclose(log_file.file);
+        std::fclose(log_descriptor.file);
     }
 }
 
-void Logger::attach_log(std::string_view log_name, LogCategoryFlags category_flags)
+void Logger::attach_log(std::string_view log_name, LogCategoryFlags category_flags, bool print_time)
 {
     try
     {
-        if (log_files.find(log_name) != log_files.end())
+        if (log_descriptors.find(log_name) != log_descriptors.end())
         {
             throw std::runtime_error(std::string("Log \"") + log_name.data() + "\" already attached");
         }
@@ -98,7 +98,7 @@ void Logger::attach_log(std::string_view log_name, LogCategoryFlags category_fla
             throw std::runtime_error(std::string("Failed to open \"") + log_name.data() + '\"');
         }
 
-        log_files.emplace(log_name, LogFile{log_file, category_flags});
+        log_descriptors.emplace(log_name, LogDescriptor{log_file, category_flags});
     }
     catch (const std::exception& exception)
     {
@@ -110,14 +110,14 @@ void Logger::detach_log(std::string_view log_name)
 {
     try
     {
-        auto found_it = log_files.find(log_name);
-        if (found_it == log_files.end())
+        auto found_it = log_descriptors.find(log_name);
+        if (found_it == log_descriptors.end())
         {
             throw std::runtime_error(std::string("Log \"") + log_name.data() + "\" not attached");
         }
 
         std::fclose(found_it->second.file);
-        log_files.erase(found_it);
+        log_descriptors.erase(found_it);
     }
     catch (const std::exception& exception)
     {

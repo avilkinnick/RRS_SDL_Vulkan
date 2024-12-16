@@ -4,8 +4,30 @@
 #include <map>
 #include <string_view>
 
-#include "logging/LogCategoryFlags.h"
-#include "logging/LogDescriptor.h"
+#include <cstdio>
+
+enum LogLevelFlags
+{
+    LOG_LEVEL_FLAGS_CRITICAL = 0x01,
+    LOG_LEVEL_FLAGS_ERROR = 0x01,
+    LOG_LEVEL_FLAGS_WARNING = 0x01,
+    LOG_LEVEL_FLAGS_INFO = 0x01,
+    LOG_LEVEL_FLAGS_DEBUG = 0x01,
+    LOG_LEVEL_FLAGS_VERBOSE = 0x01,
+
+    LOG_CATEGORY_FLAGS_ALL =
+        LOG_CATEGORY_FLAGS_ERROR
+        | LOG_CATEGORY_FLAGS_WARNING
+        | LOG_CATEGORY_FLAGS_INFO
+        | LOG_CATEGORY_FLAGS_DEBUG
+};
+
+struct LogDescriptor
+{
+    FILE* file;
+    LogCategoryFlags category_flags;
+    bool print_time;
+};
 
 class Logger
 {
@@ -13,7 +35,12 @@ public:
     static Logger& get_instance();
     ~Logger();
 
-    void attach_log(std::string_view log_name, LogCategoryFlags category_flags = LogCategoryFlags::all);
+    void attach_log(
+        std::string_view log_name,
+        LogCategoryFlags category_flags = LOG_CATEGORY_FLAGS_ALL,
+        bool print_time = true
+    );
+
     void detach_log(std::string_view log_name);
 
     void log_error(const char* format, ...);
@@ -33,7 +60,6 @@ public:
     static constexpr const char* separator = "========================================================================";
 
     bool log_to_console = true;
-    bool log_time = false;
 
 private:
     Logger() = default;
