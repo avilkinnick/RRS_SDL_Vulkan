@@ -7,7 +7,7 @@
 int main(int argc, char* argv[])
 {
     auto& logger = Logger::get_instance();
-    logger.attach_log("log.txt");
+    // logger.attach_log("log.txt", LOG_CATEGORY_FLAGS_error | LOG_CATEGORY_FLAGS_info);
 
     try
     {

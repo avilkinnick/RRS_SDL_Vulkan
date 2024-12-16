@@ -1,10 +1,18 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#ifndef LOGGING_LOGGER_H
+#define LOGGING_LOGGER_H
 
 #include <cstdio>
 
 #include <map>
 #include <string_view>
+
+#include "logging/LogCategoryFlags.h"
+
+struct LogFile
+{
+    FILE* file;
+    LogCategoryFlags category_flags;
+};
 
 class Logger
 {
@@ -12,10 +20,7 @@ public:
     static Logger& get_instance();
     ~Logger();
 
-    void enable_console_log() { log_to_console = true; }
-    void disable_console_log() { log_to_console = false; }
-
-    void attach_log(std::string_view log_name);
+    void attach_log(std::string_view log_name, LogCategoryFlags category_flags = LogCategoryFlags::all);
     void detach_log(std::string_view log_name);
 
     void log_error(const char* format, ...);
@@ -34,12 +39,16 @@ public:
 public:
     static constexpr const char* separator = "========================================================================";
 
+    bool log_to_console = true;
+    bool log_time = false;
+
 private:
     Logger() = default;
 
 private:
-    bool log_to_console = true;
-    std::map<std::string_view, FILE*> log_files;
+    std::map<std::string_view, LogFile> log_files;
 };
 
-#endif // LOGGER_H
+#endif // LOGGING_LOGGER_H
+
+// TODO: Rename LogFile?
