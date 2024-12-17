@@ -1,5 +1,5 @@
-#ifndef LOGGING_LOGGER_H
-#define LOGGING_LOGGER_H
+#ifndef LOGGER_H
+#define LOGGER_H
 
 #include <map>
 #include <string_view>
@@ -74,4 +74,4 @@ private:
     std::map<std::string_view, LogDescriptor> log_descriptors;
 };
 
-#endif // LOGGING_LOGGER_H
+#endif // LOGGER_H

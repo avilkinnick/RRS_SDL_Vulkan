@@ -48,7 +48,7 @@
     }
 
 #define LOG_IMPLEMENTATION(level, ansi_escape_code) \
-void Logger::log_##level(const char* format, ...) \
+    void Logger::log_##level(const char* format, ...) \
     { \
         if (log_to_console) \
         { \

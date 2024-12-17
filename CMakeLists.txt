@@ -65,17 +65,21 @@ elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_VIEWER_GUI_TYPE_STRING})
 endif()
 
 add_executable(RRS
+    ${PUGI_XML_SOURCES}/pugiconfig.hpp
+    ${PUGI_XML_SOURCES}/pugixml.cpp
+    ${PUGI_XML_SOURCES}/pugixml.hpp
     include/cmake_defines.h
+    include/ConfigFile.h
     include/Logger.h
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
     include/simulator/Application.h
-    src/main.cpp
+    src/ConfigFile.cpp
     src/Logger.cpp
+    src/main.cpp
     src/sdl_wrappers/SdlInstance.cpp
     src/sdl_wrappers/SdlWindowWrapper.cpp
     src/simulator/Application.cpp
-    ${PUGI_XML_SOURCES}/pugixml.cpp
 )
 
 target_link_libraries(RRS PRIVATE
