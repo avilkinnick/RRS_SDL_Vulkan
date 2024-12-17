@@ -8,25 +8,28 @@
 
 enum LogLevelFlags
 {
-    LOG_LEVEL_FLAGS_CRITICAL = 0x01,
-    LOG_LEVEL_FLAGS_ERROR = 0x01,
-    LOG_LEVEL_FLAGS_WARNING = 0x01,
-    LOG_LEVEL_FLAGS_INFO = 0x01,
-    LOG_LEVEL_FLAGS_DEBUG = 0x01,
-    LOG_LEVEL_FLAGS_VERBOSE = 0x01,
+    LOG_LEVEL_FLAGS_FATAL = 0x01,
+    LOG_LEVEL_FLAGS_ERROR = 0x02,
+    LOG_LEVEL_FLAGS_WARN = 0x04,
+    LOG_LEVEL_FLAGS_INFO = 0x08,
+    LOG_LEVEL_FLAGS_DEBUG = 0x10,
+    LOG_LEVEL_FLAGS_TRACE = 0x20,
 
-    LOG_CATEGORY_FLAGS_ALL =
-        LOG_CATEGORY_FLAGS_ERROR
-        | LOG_CATEGORY_FLAGS_WARNING
-        | LOG_CATEGORY_FLAGS_INFO
-        | LOG_CATEGORY_FLAGS_DEBUG
+    LOG_LEVEL_FLAGS_ALL =
+        LOG_LEVEL_FLAGS_FATAL
+        | LOG_LEVEL_FLAGS_ERROR
+        | LOG_LEVEL_FLAGS_WARN
+        | LOG_LEVEL_FLAGS_INFO
+        | LOG_LEVEL_FLAGS_DEBUG
+        | LOG_LEVEL_FLAGS_TRACE
 };
 
 struct LogDescriptor
 {
     FILE* file;
-    LogCategoryFlags category_flags;
+    LogLevelFlags level_flags;
     bool print_time;
+    bool print_level;
 };
 
 class Logger
@@ -37,21 +40,24 @@ public:
 
     void attach_log(
         std::string_view log_name,
-        LogCategoryFlags category_flags = LOG_CATEGORY_FLAGS_ALL,
-        bool print_time = true
+        LogLevelFlags level_flags = LOG_LEVEL_FLAGS_ALL,
+        bool print_time = true,
+        bool print_level = true
     );
 
     void detach_log(std::string_view log_name);
 
+    void log_fatal(const char* format, ...);
     void log_error(const char* format, ...);
-    void log_warning(const char* format, ...);
+    void log_warn(const char* format, ...);
     void log_info(const char* format, ...);
-    void log_message(const char* format, ...);
 
 #ifndef NDEBUG
     void log_debug(const char* format, ...);
+    void log_trace(const char* format, ...);
 #else
     void log_debug(const char* format, ...) {}
+    void log_trace(const char* format, ...) {}
 #endif
 
     void log_sdl_error();

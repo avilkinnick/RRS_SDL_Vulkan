@@ -1,11 +1,11 @@
 #include "sdl_wrappers/SdlWindowWrapper.h"
 
-#include <stdexcept>
+#include "Logger.h"
 
 #include <SDL_stdinc.h>
 #include <SDL_video.h>
 
-#include "Logger.h"
+#include <stdexcept>
 
 SdlWindowWrapper::SdlWindowWrapper(const char* title, int x, int y, int width, int height, Uint32 flags)
     : window(SDL_CreateWindow(title, x, y, width, height, flags))

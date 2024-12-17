@@ -1,29 +1,29 @@
-#include <exception>
+#include "Logger.h"
 
 #include <SDL_main.h>
 
-#include "Logger.h"
+#include <exception>
 
 int main(int argc, char* argv[])
 {
-    auto& logger = Logger::get_instance();
-    // logger.attach_log("log.txt", LOG_CATEGORY_FLAGS_error | LOG_CATEGORY_FLAGS_info);
+    Logger& logger = Logger::get_instance();
 
     try
     {
-        logger.log_message(logger.separator);
-        logger.log_message("Started new session");
-        logger.log_message("Journal subsystem is initialized successfully");
-        logger.log_message(logger.separator);
+        logger.attach_log("log.txt");
+        logger.log_info(logger.separator);
+        logger.log_info("Started new session");
+        logger.log_info("Logger subsystem is initialized successfully");
+        logger.log_info(logger.separator);
     }
     catch (const std::exception& exception)
     {
-        logger.log_error(exception.what());
+        logger.log_fatal(exception.what());
         return 1;
     }
     catch (...)
     {
-        logger.log_error("Unknown exception");
+        logger.log_fatal("Unknown exception");
         return 1;
     }
 

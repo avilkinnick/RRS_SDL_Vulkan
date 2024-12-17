@@ -1,11 +1,11 @@
 #include "sdl_wrappers/SdlInstance.h"
 
-#include <stdexcept>
+#include "Logger.h"
 
 #include <SDL.h>
 #include <SDL_stdinc.h>
 
-#include "Logger.h"
+#include <stdexcept>
 
 SdlInstance::SdlInstance(Uint32 flags)
 {
