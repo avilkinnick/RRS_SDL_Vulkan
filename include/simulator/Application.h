@@ -3,6 +3,8 @@
 
 class Application
 {
+public:
+    Application(int argc, char* argv[]);
 };
 
 #endif // SIMULATOR_APPLICATION_H

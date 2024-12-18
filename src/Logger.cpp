@@ -101,7 +101,7 @@ void Logger::attach_file(std::string_view filename, LogLevelFlags level_flags, b
     {
         if (log_descriptors.find(filename) != log_descriptors.end())
         {
-            throw std::runtime_error(std::string("Log \"") + filename.data() + "\" already attached");
+            throw std::runtime_error(std::string("Log \"") + filename.data() + "\" is already attached");
         }
 
         constexpr const char* log_name_regex_string = R"(\w+\.\w+)";
@@ -140,7 +140,7 @@ void Logger::detach_file(std::string_view filename)
         auto found_it = log_descriptors.find(filename);
         if (found_it == log_descriptors.end())
         {
-            throw std::runtime_error(std::string("Log \"") + filename.data() + "\" not attached");
+            throw std::runtime_error(std::string("Log \"") + filename.data() + "\" is not attached");
         }
 
         std::fclose(found_it->second.file);

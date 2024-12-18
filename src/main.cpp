@@ -1,4 +1,5 @@
 #include "Logger.h"
+#include "simulator/Application.h" // TODO:
 
 #include <SDL_main.h>
 
@@ -15,6 +16,8 @@ int main(int argc, char* argv[])
         logger.log_info("Started new session");
         logger.log_info("Logger subsystem is initialized successfully");
         logger.log_info(logger.separator);
+
+        Application application(argc, argv);
     }
     catch (const std::exception& exception)
     {
