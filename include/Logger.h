@@ -38,14 +38,14 @@ public:
     static Logger& get_instance();
     ~Logger();
 
-    void attach_log(
-        std::string_view log_name,
+    void attach_file(
+        std::string_view filename,
         LogLevelFlags level_flags = LOG_LEVEL_FLAGS_ALL,
         bool print_time = true,
         bool print_level = true
     );
 
-    void detach_log(std::string_view log_name);
+    void detach_file(std::string_view filename);
 
     void log_fatal(const char* format, ...);
     void log_error(const char* format, ...);

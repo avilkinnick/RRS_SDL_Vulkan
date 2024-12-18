@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 
     try
     {
-        logger.attach_log("log.txt");
+        logger.attach_file("log.txt");
         logger.log_info(logger.separator);
         logger.log_info("Started new session");
         logger.log_info("Logger subsystem is initialized successfully");

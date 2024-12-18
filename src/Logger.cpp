@@ -93,34 +93,34 @@ Logger::~Logger()
     }
 }
 
-void Logger::attach_log(std::string_view log_name, LogLevelFlags level_flags, bool print_time, bool print_level)
+void Logger::attach_file(std::string_view filename, LogLevelFlags level_flags, bool print_time, bool print_level)
 {
     FILE* log_file = nullptr;
 
     try
     {
-        if (log_descriptors.find(log_name) != log_descriptors.end())
+        if (log_descriptors.find(filename) != log_descriptors.end())
         {
-            throw std::runtime_error(std::string("Log \"") + log_name.data() + "\" already attached");
+            throw std::runtime_error(std::string("Log \"") + filename.data() + "\" already attached");
         }
 
         constexpr const char* log_name_regex_string = R"(\w+\.\w+)";
         std::regex log_name_regex(log_name_regex_string);
-        if (!std::regex_match(log_name.data(), log_name_regex))
+        if (!std::regex_match(filename.data(), log_name_regex))
         {
             throw std::runtime_error(
-                std::string("Invalid log name. Must match regular expression: ") + log_name_regex_string
+                std::string("Invalid filename. Must match regular expression: ") + log_name_regex_string
             );
         }
 
-        std::string log_path = std::string(LOGS_DIR "/") + log_name.data();
+        std::string log_path = std::string(LOGS_DIR "/") + filename.data();
         log_file = std::fopen(log_path.c_str(), "a");
         if (!log_file)
         {
-            throw std::runtime_error(std::string("Failed to open \"") + log_name.data() + '\"');
+            throw std::runtime_error(std::string("Failed to open \"") + filename.data() + '\"');
         }
 
-        log_descriptors.emplace(log_name, LogDescriptor{log_file, level_flags, print_time, print_level});
+        log_descriptors.emplace(filename, LogDescriptor{log_file, level_flags, print_time, print_level});
     }
     catch (const std::exception& exception)
     {
@@ -133,14 +133,14 @@ void Logger::attach_log(std::string_view log_name, LogLevelFlags level_flags, bo
     }
 }
 
-void Logger::detach_log(std::string_view log_name)
+void Logger::detach_file(std::string_view filename)
 {
     try
     {
-        auto found_it = log_descriptors.find(log_name);
+        auto found_it = log_descriptors.find(filename);
         if (found_it == log_descriptors.end())
         {
-            throw std::runtime_error(std::string("Log \"") + log_name.data() + "\" not attached");
+            throw std::runtime_error(std::string("Log \"") + filename.data() + "\" not attached");
         }
 
         std::fclose(found_it->second.file);
