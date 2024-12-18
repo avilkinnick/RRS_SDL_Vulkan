@@ -5,17 +5,19 @@ project(RRS LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(DEPENDENCIES_DIR ${PROJECT_SOURCE_DIR}/dependencies)
-
 if(WIN32)
+    set(DEPENDENCIES_DIR ${PROJECT_SOURCE_DIR}/dependencies/WIN32)
+
     set(SDL2_DIRECTORY ${DEPENDENCIES_DIR}/SDL2-2.30.10)
     set(SDL2_DIR ${SDL2_DIRECTORY}/cmake)
     configure_file(${SDL2_DIRECTORY}/lib/x64/SDL2.dll SDL2.dll COPYONLY)
+
+    add_subdirectory(${$DEPENDENCIES_DIR}/pugixml-1.14)
+elseif(UNIX)
+    find_package(pugixml REQUIRED)
 endif()
 
 find_package(SDL2 REQUIRED)
-
-set(PUGI_XML_SOURCES ${DEPENDENCIES_DIR}/pugixml-1.14/src)
 
 set(RESOURCES_DIR ${PROJECT_SOURCE_DIR}/resources)
 set(CONFIGS_DIR ${RESOURCES_DIR}/cfg)
@@ -65,15 +67,14 @@ elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_VIEWER_GUI_TYPE_STRING})
 endif()
 
 add_executable(RRS
-    ${PUGI_XML_SOURCES}/pugiconfig.hpp
-    ${PUGI_XML_SOURCES}/pugixml.cpp
-    ${PUGI_XML_SOURCES}/pugixml.hpp
     include/cmake_defines.h
+    include/CommandLineParser.h
     include/ConfigFile.h
     include/Logger.h
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
     include/simulator/Application.h
+    src/CommandLineParser.cpp
     src/ConfigFile.cpp
     src/Logger.cpp
     src/main.cpp
@@ -87,7 +88,8 @@ target_link_libraries(RRS PRIVATE
     SDL2::SDL2main
 )
 
-target_include_directories(RRS PRIVATE
-    ${PUGI_XML_SOURCES}
-    include
-)
+if(UNIX)
+    target_link_libraries(RRS PRIVATE pugixml::pugixml)
+endif()
+
+target_include_directories(RRS PRIVATE include)
