@@ -12,7 +12,7 @@ if(WIN32)
     set(SDL2_DIR ${SDL2_DIRECTORY}/cmake)
     configure_file(${SDL2_DIRECTORY}/lib/x64/SDL2.dll SDL2.dll COPYONLY)
 
-    add_subdirectory(${$DEPENDENCIES_DIR}/pugixml-1.14)
+    set(PUGIXML_SOURCES ${DEPENDENCIES_DIR}/pugixml-1.14/src)
 elseif(UNIX)
     find_package(pugixml REQUIRED)
 endif()
@@ -67,6 +67,7 @@ elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_VIEWER_GUI_TYPE_STRING})
 endif()
 
 add_executable(RRS
+    include/CLI11.hpp
     include/cmake_defines.h
     include/CommandLineParser.h
     include/ConfigFile.h
@@ -88,8 +89,20 @@ target_link_libraries(RRS PRIVATE
     SDL2::SDL2main
 )
 
+target_include_directories(RRS PRIVATE include)
+
+# add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+
+if(WIN32)
+    target_sources(RRS PRIVATE
+        ${PUGIXML_SOURCES}/pugiconfig.hpp
+        ${PUGIXML_SOURCES}/pugixml.cpp
+        ${PUGIXML_SOURCES}/pugixml.hpp
+    )
+
+    target_include_directories(RRS PRIVATE ${DEPENDENCIES_DIR}/pugixml-1.14/src)
+endif()
+
 if(UNIX)
     target_link_libraries(RRS PRIVATE pugixml::pugixml)
 endif()
-
-target_include_directories(RRS PRIVATE include)
