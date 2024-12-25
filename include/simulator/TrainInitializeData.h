@@ -1,5 +1,5 @@
-#ifndef SIMULATOR_TRAIN_MODEL_INITIALIZE_DATA_H
-#define SIMULATOR_TRAIN_MODEL_INITIALIZE_DATA_H
+#ifndef SIMULATOR_TRAIN_INITIALIZE_DATA_H
+#define SIMULATOR_TRAIN_INITIALIZE_DATA_H
 
 #include <string>
 
@@ -31,7 +31,7 @@ struct solver_config_t
     double local_error = 1.0e-5;
 };
 
-struct TrainModelInitializeData
+struct TrainInitializeData
 {
     std::string route_dir_name = "experimental-polygon";
     std::string train_config = "vl60pk-1543";
@@ -46,4 +46,4 @@ struct TrainModelInitializeData
     solver_config_t solver_config;
 };
 
-#endif // SIMULATOR_TRAIN_MODEL_INITIALIZE_DATA_H
+#endif // SIMULATOR_TRAIN_INITIALIZE_DATA_H

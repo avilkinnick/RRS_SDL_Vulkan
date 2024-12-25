@@ -2,7 +2,7 @@
 
 #include "Logger.h"
 #include "simulator/CommandLineData.h"
-#include "simulator/TrainModel.h"
+#include "simulator/MotionModel.h"
 
 #include <CLI11.hpp>
 
@@ -31,9 +31,9 @@ Application::Application(int argc, char* argv[])
         throw std::runtime_error("Failed to parse command-line arguments");
     }
 
-    train_model = std::make_unique<TrainModel>();
-    logger.log_info("Created train model object at address: %p", train_model.get());
-    train_model->initialize(command_line_data);
+    motion_model = std::make_unique<MotionModel>();
+    logger.log_info("Created train model object at address: %p", motion_model.get());
+    motion_model->initialize(command_line_data);
 }
 
 Application::~Application() = default;

@@ -76,14 +76,15 @@ add_executable(RRS
     include/sdl_wrappers/SdlWindowWrapper.h
     include/simulator/Application.h
     include/simulator/CommandLineData.h
-    include/simulator/TrainModel.h
+    include/simulator/MotionModel.h
+    include/simulator/TrainInitializeData.h
     src/ConfigFile.cpp
     src/Logger.cpp
     src/main.cpp
     src/sdl_wrappers/SdlInstance.cpp
     src/sdl_wrappers/SdlWindowWrapper.cpp
     src/simulator/Application.cpp
-    src/simulator/TrainModel.cpp
+    src/simulator/MotionModel.cpp
 )
 
 target_link_libraries(RRS PRIVATE

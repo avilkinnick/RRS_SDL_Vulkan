@@ -2,7 +2,7 @@
 #define SIMULATOR_APPLICATION_H
 
 struct CommandLineData;
-class TrainModel;
+class MotionModel;
 
 #include <memory>
 
@@ -16,7 +16,7 @@ private:
     int parse_command_line_arguments(int argc, char* argv[], CommandLineData& command_line_data);
 
 private:
-    std::unique_ptr<TrainModel> train_model;
+    std::unique_ptr<MotionModel> motion_model;
 };
 
 #endif // SIMULATOR_APPLICATION_H
