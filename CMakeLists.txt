@@ -69,13 +69,11 @@ endif()
 add_executable(RRS
     include/CLI11.hpp
     include/cmake_defines.h
-    include/CommandLineParser.h
     include/ConfigFile.h
     include/Logger.h
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
     include/simulator/Application.h
-    src/CommandLineParser.cpp
     src/ConfigFile.cpp
     src/Logger.cpp
     src/main.cpp

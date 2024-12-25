@@ -37,7 +37,8 @@
         std::fprintf(out, "[%s] ", current_time_string); \
     }
 
-#define PRINT_LOG_LEVEL(out, log_level) std::fprintf(out, "[%s] ", STRINGIFY_EXPAND(capitalize_##log_level));
+#define PRINT_LOG_LEVEL(out, log_level) \
+    std::fprintf(out, "[%s] ", STRINGIFY_EXPAND(capitalize_##log_level));
 
 #define PRINT_ARGS(out, format, ...); \
     { \

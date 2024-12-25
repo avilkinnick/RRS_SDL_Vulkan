@@ -10,6 +10,7 @@ ConfigFile::ConfigFile(std::string_view path)
     : path(path)
 {
     pugi::xml_document doc;
+
     pugi::xml_parse_result result = doc.load_file(path.data());
     if (!result)
     {
