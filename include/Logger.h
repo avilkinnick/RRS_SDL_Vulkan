@@ -47,14 +47,14 @@ public:
 
     void detach_file(std::string_view filename);
 
-    void log_fatal(const char* format, ...);
-    void log_error(const char* format, ...);
-    void log_warn(const char* format, ...);
-    void log_info(const char* format, ...);
-    void log_debug(const char* format, ...);
-    void log_trace(const char* format, ...);
+    void log_fatal(const char* format, ...) const;
+    void log_error(const char* format, ...) const;
+    void log_warn(const char* format, ...) const;
+    void log_info(const char* format, ...) const;
+    void log_debug(const char* format, ...) const;
+    void log_trace(const char* format, ...) const;
 
-    void log_sdl_error();
+    void log_sdl_error() const;
 
 public:
     static constexpr const char* separator = "========================================================================";

@@ -48,8 +48,8 @@
         va_end(args); \
     }
 
-#define LOG_IMPLEMENTATION(level, ansi_escape_code) \
-    void Logger::log_##level(const char* format, ...) \
+#define LOG_IMPLEMENTATION(level, ansi_escape_code)\
+    void Logger::log_##level(const char* format, ...) const \
     { \
         if (log_to_console) \
         { \
@@ -160,7 +160,7 @@ LOG_IMPLEMENTATION(info, "\033[0m")
 LOG_IMPLEMENTATION(debug, "\033[0m")
 LOG_IMPLEMENTATION(trace, "\033[0m")
 
-void Logger::log_sdl_error()
+void Logger::log_sdl_error() const
 {
     log_error("SDL error: %s", SDL_GetError());
 }

@@ -35,7 +35,7 @@ void ConfigFile::set_current_section(const char* section_name)
     }
 }
 
-const char* ConfigFile::get_value_string(const char* property_name)
+const char* ConfigFile::get_value_string(const char* property_name) const
 {
     const char* value_string = current_section.child_value(property_name);
     if (value_string[0] == '\0')
