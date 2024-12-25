@@ -74,6 +74,7 @@ add_executable(RRS
     include/sdl_wrappers/SdlInstance.h
     include/sdl_wrappers/SdlWindowWrapper.h
     include/simulator/Application.h
+    include/simulator/CommandLineData.h
     src/ConfigFile.cpp
     src/Logger.cpp
     src/main.cpp

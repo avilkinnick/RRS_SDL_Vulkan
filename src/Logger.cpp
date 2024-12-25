@@ -157,11 +157,8 @@ LOG_IMPLEMENTATION(fatal, "\033[1;31m")
 LOG_IMPLEMENTATION(error, "\033[1;31m")
 LOG_IMPLEMENTATION(warn, "\033[1;33m")
 LOG_IMPLEMENTATION(info, "\033[0m")
-
-#ifndef NDEBUG
-    LOG_IMPLEMENTATION(debug, "\033[0m")
-    LOG_IMPLEMENTATION(trace, "\033[0m")
-#endif
+LOG_IMPLEMENTATION(debug, "\033[0m")
+LOG_IMPLEMENTATION(trace, "\033[0m")
 
 void Logger::log_sdl_error()
 {

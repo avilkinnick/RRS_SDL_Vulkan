@@ -1,6 +1,7 @@
 #include "simulator/Application.h"
 
 #include "Logger.h"
+#include "simulator/CommandLineData.h"
 
 #include <CLI11.hpp>
 
@@ -19,21 +20,32 @@ Application::Application(int argc, char* argv[])
     logger.log_info("Simulator started with command line:%s", command_line_string.c_str());
     logger.log_info("Started initialization");
 
-    int parse_command_line_arguments_result = parse_command_line_arguments(argc, argv);
-    if (parse_command_line_arguments_result != 0)
-    {
-        throw std::runtime_error(
-            std::string("Command line parser failed with error code ")
-            + std::to_string(parse_command_line_arguments_result)
-        );
-    }
+    CommandLineData command_line_data;
+    parse_command_line_arguments(argc, argv, command_line_data);
 }
 
-int Application::parse_command_line_arguments(int argc, char* argv[])
+void Application::parse_command_line_arguments(int argc, char* argv[], CommandLineData& command_line_data)
 {
-    CLI::App app("RRS simulator");
+    CLI::App app("RRS simulator v1.5.0");
     argv = app.ensure_utf8(argv);
 
-    CLI11_PARSE(app, argc, argv);
-    return 0;
+    app.add_option("-t,--train-config", command_line_data.train_config, "Train configuration");
+    app.add_option("-r,--route", command_line_data.route_dir, "Route directory");
+    app.add_option("-c,--clear-log", command_line_data.clear_log, "Clear simulator's log");
+    app.add_option("-o,--debug-print", command_line_data.debug_print, "Allow debug print");
+    app.add_option("-x,--init-coord", command_line_data.init_coord, "Initial railway coordinate");
+    app.add_option("-d,--direction", command_line_data.direction, "Motion's direction");
+    app.add_option("-p,--traj-name", command_line_data.trajectory_name, "Initial trajectory name");
+
+    try
+    {
+        app.parse(argc, argv);
+    }
+    catch (const CLI::ParseError& error)
+    {
+        if (app.exit(error) != static_cast<int>(CLI::ExitCodes::Success))
+        {
+            throw std::runtime_error("Wrong command-line arguments");
+        }
+    }
 }

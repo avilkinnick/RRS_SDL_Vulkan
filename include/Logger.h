@@ -51,14 +51,8 @@ public:
     void log_error(const char* format, ...);
     void log_warn(const char* format, ...);
     void log_info(const char* format, ...);
-
-#ifndef NDEBUG
     void log_debug(const char* format, ...);
     void log_trace(const char* format, ...);
-#else
-    void log_debug(const char* format, ...) {}
-    void log_trace(const char* format, ...) {}
-#endif
 
     void log_sdl_error();
 
