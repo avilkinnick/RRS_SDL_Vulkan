@@ -54,6 +54,7 @@ set_property(CACHE APPLICATION_TYPE PROPERTY STRINGS
     ${SIMULATOR_VIEWER_GUI_TYPE_STRING}
 )
 
+# TODO: Build type conditions
 if(APPLICATION_TYPE STREQUAL ${SIMULATOR_CONSOLE_TYPE_STRING})
     # TODO:
 elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_GUI_TYPE_STRING})
@@ -75,12 +76,14 @@ add_executable(RRS
     include/sdl_wrappers/SdlWindowWrapper.h
     include/simulator/Application.h
     include/simulator/CommandLineData.h
+    include/simulator/TrainModel.h
     src/ConfigFile.cpp
     src/Logger.cpp
     src/main.cpp
     src/sdl_wrappers/SdlInstance.cpp
     src/sdl_wrappers/SdlWindowWrapper.cpp
     src/simulator/Application.cpp
+    src/simulator/TrainModel.cpp
 )
 
 target_link_libraries(RRS PRIVATE

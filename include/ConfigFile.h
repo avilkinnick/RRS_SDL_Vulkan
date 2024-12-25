@@ -43,4 +43,10 @@ inline const char* ConfigFile::read<const char*>(const char* property_name)
     return get_value_string(property_name);
 }
 
+template <>
+inline std::string_view ConfigFile::read<std::string_view>(const char* property_name)
+{
+    return get_value_string(property_name);
+}
+
 #endif // CONFIG_FILE_H

@@ -1,5 +1,5 @@
 #include "Logger.h"
-#include "simulator/Application.h" // TODO:
+#include "simulator/Application.h" // TODO: Different files based on cmake_defines.h?
 
 #include <SDL_main.h>
 
