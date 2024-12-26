@@ -30,7 +30,7 @@ void ConfigFile::set_current_section(const char* section_name)
     if (!current_section)
     {
         throw std::runtime_error(
-            std::string("Failed to find \"") + section_name + "\" section in \"" + path.data() + '\"'
+            std::string("Failed to find \"") + section_name + "\" section in \"" + path + '\"'
         );
     }
 }
@@ -44,7 +44,7 @@ const char* ConfigFile::get_value_string(const char* property_name) const
             std::string("Section \"")
             + current_section.name()
             + "\" in \""
-            + path.data()
+            + path
             + "\" does not contain property \""
             + property_name
             + "\" or it is empty"

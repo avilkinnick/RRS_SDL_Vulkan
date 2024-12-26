@@ -4,6 +4,7 @@
 #include <pugixml.hpp>
 
 #include <sstream>
+#include <string>
 #include <string_view>
 
 class ConfigFile
@@ -20,7 +21,7 @@ private:
     const char* get_value_string(const char* property_name) const;
 
 private:
-    std::string_view path;
+    std::string path;
     pugi::xml_node main_section;
     pugi::xml_node current_section;
 };

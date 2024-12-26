@@ -2,6 +2,7 @@
 #define LOGGER_H
 
 #include <map>
+#include <string>
 #include <string_view>
 
 #include <cstdio>
@@ -65,7 +66,7 @@ private:
     Logger() = default;
 
 private:
-    std::map<std::string_view, LogDescriptor> log_descriptors;
+    std::map<std::string, LogDescriptor> log_descriptors;
 };
 
 #endif // LOGGER_H
