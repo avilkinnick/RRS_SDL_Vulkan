@@ -81,6 +81,7 @@ add_executable(RRS
     include/simulator/MotionModel.h
     include/simulator/Solver.h
     include/simulator/TrainInitializationInfo.h
+    include/simulator/topology/Topology.h
     src/ConfigFile.cpp
     src/Logger.cpp
     src/main.cpp
@@ -88,6 +89,7 @@ add_executable(RRS
     src/sdl_wrappers/SdlWindowWrapper.cpp
     src/simulator/Application.cpp
     src/simulator/MotionModel.cpp
+    src/simulator/topology/Topology.cpp
 )
 
 target_link_libraries(RRS PRIVATE

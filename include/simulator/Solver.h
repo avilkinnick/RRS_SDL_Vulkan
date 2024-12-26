@@ -7,7 +7,7 @@
 
 struct Solver
 {
-    std::string method = "euler"; //< ODE solution method (solver name)
+    std::string integration_method = "euler"; //< ODE solution method (solver name)
     double start_time = 0.0; //< Initital time
     double stop_time = 10.0; //< Stop integration time
     double step = 3.0e-3; //< Initial time step value (step value for fixed step methods)
