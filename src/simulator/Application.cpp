@@ -44,7 +44,7 @@ int Application::parse_command_line_arguments(int argc, char* argv[], CommandLin
     argv = app.ensure_utf8(argv);
 
     app.add_option("-t,--train-config", command_line_data.train_configs, "Train configurations");
-    app.add_option("-r,--route", command_line_data.route_directory, "Route directory");
+    app.add_option("-r,--route", command_line_data.route_directory_name, "Route directory");
     app.add_flag("-c,--clear-log", command_line_data.clear_log, "Clear simulator's log");
     app.add_flag("-o,--debug-print", command_line_data.debug_print, "Allow debug print");
     app.add_option("-x,--init-coord", command_line_data.initial_coordinates, "Initial railway coordinates");

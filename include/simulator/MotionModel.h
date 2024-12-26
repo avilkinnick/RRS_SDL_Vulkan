@@ -1,14 +1,13 @@
 #ifndef SIMULATOR_MOTION_MODEL_H
 #define SIMULATOR_MOTION_MODEL_H
 
-#include "simulator/TrainInitializationInfo.h"
-
 #include <memory>
 #include <vector>
 
 struct CommandLineData;
 struct Solver;
 class Topology;
+struct TrainInitializationInfo;
 
 class MotionModel
 {

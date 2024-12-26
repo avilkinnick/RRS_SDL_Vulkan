@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include <cstddef>
 
@@ -65,9 +66,9 @@ void MotionModel::override_train_initialization_info_by_command_line(
     Logger& logger = Logger::get_instance();
     logger.log_info("==== Command line processing ====");
 
-    if (command_line_data.route_directory)
+    if (command_line_data.route_directory_name)
     {
-        train_initialization_info.route_directory_name = command_line_data.route_directory.value();
+        train_initialization_info.route_directory_name = command_line_data.route_directory_name.value();
     }
 
     train_initialization_info.debug_print = command_line_data.debug_print;
