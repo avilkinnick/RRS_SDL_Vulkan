@@ -1,12 +1,12 @@
 #include "simulator/Application.h"
 
+#include "cmake_defines.h"
 #include "Logger.h"
 #include "simulator/CommandLineData.h"
 #include "simulator/MotionModel.h"
 
 #include <CLI11.hpp>
 
-#include <SDL_assert.h>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -32,25 +32,24 @@ Application::Application(int argc, char* argv[])
     }
 
     motion_model = std::make_unique<MotionModel>();
-    logger.log_info("Created train model object at address: %p", motion_model.get());
+    logger.log_info("Created motion model object at address: %p", motion_model.get());
     motion_model->initialize(command_line_data);
 }
 
 Application::~Application() = default;
 
-// TODO: Change names
-int Application::parse_command_line_arguments(int argc, char* argv[], CommandLineData& command_line_data)
+int Application::parse_command_line_arguments(int argc, char* argv[], CommandLineData& command_line_data) const
 {
-    CLI::App app("RRS simulator v1.5.0");
+    CLI::App app("RRS simulator v" APPLICATION_VERSION);
     argv = app.ensure_utf8(argv);
 
-    app.add_option("-t,--train-config", command_line_data.train_config, "Train configuration");
-    app.add_option("-r,--route", command_line_data.route_dir, "Route directory");
+    app.add_option("-t,--train-config", command_line_data.train_configs, "Train configurations");
+    app.add_option("-r,--route", command_line_data.route_directory, "Route directory");
     app.add_flag("-c,--clear-log", command_line_data.clear_log, "Clear simulator's log");
     app.add_flag("-o,--debug-print", command_line_data.debug_print, "Allow debug print");
-    app.add_option("-x,--init-coord", command_line_data.init_coord, "Initial railway coordinate");
-    app.add_option("-d,--direction", command_line_data.direction, "Motion's direction");
-    app.add_option("-p,--traj-name", command_line_data.trajectory_name, "Initial trajectory name");
+    app.add_option("-x,--init-coord", command_line_data.initial_coordinates, "Initial railway coordinates");
+    app.add_option("-d,--direction", command_line_data.directions, "Motion's directions");
+    app.add_option("-p,--traj-name", command_line_data.trajectory_names, "Initial trajectory names");
 
     CLI11_PARSE(app, argc, argv);
     return 0;

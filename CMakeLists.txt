@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(RRS LANGUAGES C CXX)
+project(RRS VERSION 1.6.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -18,6 +18,8 @@ elseif(UNIX)
 endif()
 
 find_package(SDL2 REQUIRED)
+
+set(APPLICATION_VERSION ${PROJECT_VERSION})
 
 set(RESOURCES_DIR ${PROJECT_SOURCE_DIR}/resources)
 set(CONFIGS_DIR ${RESOURCES_DIR}/cfg)
@@ -77,7 +79,8 @@ add_executable(RRS
     include/simulator/Application.h
     include/simulator/CommandLineData.h
     include/simulator/MotionModel.h
-    include/simulator/TrainInitializeData.h
+    include/simulator/Solver.h
+    include/simulator/TrainInitializationInfo.h
     src/ConfigFile.cpp
     src/Logger.cpp
     src/main.cpp
