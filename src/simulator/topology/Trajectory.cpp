@@ -1,6 +1,8 @@
 #include "simulator/topology/Trajectory.h"
 
+#include "Logger.h"
 #include "simulator/topology/ModuleDescriptor.h"
+#include "simulator/topology/Track.h"
 
 #include <glm/ext/vector_double3.hpp>
 #include <glm/glm.hpp>
@@ -18,6 +20,8 @@ void Trajectory::load(
     std::vector<ModuleDescriptor> modules
 )
 {
+    Logger& logger = Logger::get_instance();
+
     std::string path = std::string(route_directory) + "/topology/trajectories/" + trajectory_name.data() + ".traj";
 
     std::ifstream file(path);
@@ -40,5 +44,19 @@ void Trajectory::load(
         glm::dvec3 point2;
         double railway_coordinate2;
         track_end >> point2.x >> point2.y >> point2.z >> railway_coordinate2;
+
+        Track track(point1, point2);
+        track.railway_coordinate1 = railway_coordinate1;
+        track.railway_coordinate2 = railway_coordinate2;
+        track.trajectory_coordinate = length;
+        length += track.length;
+        tracks.emplace_back(std::move(track));
+    }
+
+    name = trajectory_name;
+
+    if (modules.empty())
+    {
+        logger.log_warn("No modules for trajectory \"%s\"", trajectory_name);
     }
 }

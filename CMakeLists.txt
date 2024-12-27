@@ -72,30 +72,12 @@ elseif(APPLICATION_TYPE STREQUAL ${SIMULATOR_VIEWER_GUI_TYPE_STRING})
     # TODO:
 endif()
 
+file(GLOB_RECURSE RRS_HEADERS include/*.h)
+file(GLOB_RECURSE RRS_SOURCES src/*.cpp)
+
 add_executable(RRS
-    include/CLI11.hpp
-    include/cmake_defines.h
-    include/ConfigFile.h
-    include/Logger.h
-    include/sdl_wrappers/SdlInstance.h
-    include/sdl_wrappers/SdlWindowWrapper.h
-    include/simulator/Application.h
-    include/simulator/CommandLineData.h
-    include/simulator/MotionModel.h
-    include/simulator/Solver.h
-    include/simulator/TrainInitializationInfo.h
-    include/simulator/topology/ModuleDescriptor.h
-    include/simulator/topology/Topology.h
-    include/simulator/topology/Trajectory.h
-    src/ConfigFile.cpp
-    src/Logger.cpp
-    src/main.cpp
-    src/sdl_wrappers/SdlInstance.cpp
-    src/sdl_wrappers/SdlWindowWrapper.cpp
-    src/simulator/Application.cpp
-    src/simulator/MotionModel.cpp
-    src/simulator/topology/Topology.cpp
-    src/simulator/topology/Trajectory.cpp
+    ${RRS_HEADERS}
+    ${RRS_SOURCES}
 )
 
 target_link_libraries(RRS PRIVATE

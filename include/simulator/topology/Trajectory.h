@@ -1,6 +1,9 @@
 #ifndef SIMULATOR_TOPOLOGY_TRAJECTORY_H
 #define SIMULATOR_TOPOLOGY_TRAJECTORY_H
 
+#include "simulator/topology/Track.h"
+
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -14,6 +17,11 @@ public:
         std::string_view trajectory_name,
         std::vector<ModuleDescriptor> modules
     );
+
+private:
+    std::string name;
+    double length = 0.0;
+    std::vector<Track> tracks;
 };
 
 #endif // SIMULATOR_TOPOLOGY_TRAJECTORY_H
