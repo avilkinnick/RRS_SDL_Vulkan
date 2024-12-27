@@ -48,6 +48,8 @@ void Topology::load(std::string_view route_directory_name)
                 }
             }
         }
+
+        trajectory->load(route_path, trajectory_name, modules);
     }
 }
 
