@@ -17,6 +17,9 @@ public:
     template <typename T>
     T read(const char* property_name) const;
 
+    template <typename F>
+    void for_each(const char* property_name, F function);
+
 private:
     const char* get_value_string(const char* property_name) const;
 
@@ -36,6 +39,16 @@ T ConfigFile::read(const char* property_name) const
     ss >> value;
 
     return value;
+}
+
+template <typename F>
+void ConfigFile::for_each(const char* property_name, F function)
+{
+    for (pugi::xml_node property : main_section.children(property_name))
+    {
+        current_section = property;
+        function();
+    }
 }
 
 #endif // CONFIG_FILE_H
