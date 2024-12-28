@@ -10,6 +10,8 @@ class ConfigFile
 {
 public:
     explicit ConfigFile(std::string_view path);
+    ConfigFile(const ConfigFile&) = delete;
+    ConfigFile& operator=(const ConfigFile&) = delete;
 
     void set_current_section(const char* section_name);
 
