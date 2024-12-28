@@ -8,11 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(WIN32)
     set(DEPENDENCIES_DIR ${PROJECT_SOURCE_DIR}/dependencies/WIN32)
 
-    add_subdirectory(${DEPENDENCIES_DIR}/glm)
-
     set(SDL2_DIRECTORY ${DEPENDENCIES_DIR}/SDL2-2.30.10)
     set(SDL2_DIR ${SDL2_DIRECTORY}/cmake)
     configure_file(${SDL2_DIRECTORY}/lib/x64/SDL2.dll SDL2.dll COPYONLY)
+
+    add_subdirectory(${DEPENDENCIES_DIR}/glm)
 
     set(PUGIXML_SOURCES ${DEPENDENCIES_DIR}/pugixml-1.14/src)
 elseif(UNIX)
@@ -96,7 +96,7 @@ if(WIN32)
         ${PUGIXML_SOURCES}/pugixml.hpp
     )
 
-    target_include_directories(RRS PRIVATE ${DEPENDENCIES_DIR}/pugixml-1.14/src)
+    target_include_directories(RRS PRIVATE ${PUGIXML_SOURCES})
 endif()
 
 if(UNIX)
