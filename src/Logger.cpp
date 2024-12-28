@@ -4,7 +4,6 @@
 
 #include <SDL_error.h>
 
-#include <chrono>
 #include <exception>
 #include <map>
 #include <regex>
@@ -14,7 +13,6 @@
 
 #include <cstdarg>
 #include <cstdio>
-#include <cstring>
 #include <ctime>
 
 #define capitalize_fatal FATAL
@@ -30,23 +28,29 @@
 #define CONCAT_EXPAND(A, B) CONCAT(A, B)
 
 #define PRINT_CURRENT_TIME(out) \
-    { \
-        std::time_t current_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); \
-        char* current_time_string = std::ctime(&current_time); \
-        current_time_string[strlen(current_time_string) - 1] = '\0'; \
-        std::fprintf(out, "[%s] ", current_time_string); \
-    }
+{ \
+    std::time_t current_time = std::time(nullptr); \
+    std::tm* local_time = std::localtime(&current_time); \
+    std::fprintf(out, "[%04d.%02d.%02d %02d:%02d:%02d] ", \
+        1900 + local_time->tm_year, \
+        local_time->tm_mon + 1, \
+        local_time->tm_mday, \
+        local_time->tm_hour, \
+        local_time->tm_min, \
+        local_time->tm_sec \
+    ); \
+}
 
 #define PRINT_LOG_LEVEL(out, log_level) \
     std::fprintf(out, "[%s] ", STRINGIFY_EXPAND(capitalize_##log_level));
 
 #define PRINT_ARGS(out, format, ...); \
-    { \
-        std::va_list args; \
-        va_start(args, format); \
-        std::vfprintf(out, format, args); \
-        va_end(args); \
-    }
+{ \
+    std::va_list args; \
+    va_start(args, format); \
+    std::vfprintf(out, format, args); \
+    va_end(args); \
+}
 
 #define LOG_IMPLEMENTATION(level, ansi_escape_code)\
     void Logger::log_##level(const char* format, ...) const \
@@ -110,7 +114,10 @@ void Logger::attach_file(std::string_view filename, LogLevelFlags level_flags, b
         if (!std::regex_match(filename.data(), log_name_regex))
         {
             throw std::runtime_error(
-                std::string("Invalid filename. Must match regular expression: ") + log_name_regex_string
+                std::string("Invalid filename \"")
+                + filename.data()
+                + "\". Must match regular expression: "
+                + log_name_regex_string
             );
         }
 

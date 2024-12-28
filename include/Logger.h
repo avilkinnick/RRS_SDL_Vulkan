@@ -26,7 +26,7 @@ enum LogLevelFlags
 
 struct LogDescriptor
 {
-    FILE* file;
+    std::FILE* file;
     LogLevelFlags level_flags;
     bool print_time;
     bool print_level;
