@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_SOLVER_H
-#define SIMULATOR_SOLVER_H
+#pragma once
 
 #include <string>
 
@@ -15,5 +14,3 @@ struct Solver
     std::size_t sub_step_count = 1; //< Substep count
     double local_error = 1.0e-5; //< Local error of solution
 };
-
-#endif // SIMULATOR_SOLVER_H

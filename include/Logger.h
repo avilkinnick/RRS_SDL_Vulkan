@@ -1,5 +1,4 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
 
 #include <map>
 #include <string>
@@ -37,6 +36,8 @@ class Logger
 {
 public:
     static Logger& get_instance();
+    Logger(const Logger&) = delete;
+    Logger& operator=(const Logger&) = delete;
     ~Logger();
 
     void attach_file(
@@ -68,5 +69,3 @@ private:
 private:
     std::map<std::string, LogDescriptor> log_descriptors;
 };
-
-#endif // LOGGER_H

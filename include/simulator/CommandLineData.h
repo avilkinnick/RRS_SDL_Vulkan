@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_COMMAND_LINE_DATA_H
-#define SIMULATOR_COMMAND_LINE_DATA_H
+#pragma once
 
 #include <optional>
 #include <string>
@@ -16,4 +15,3 @@ struct CommandLineData
     std::optional<std::vector<std::string>> trajectory_names;
 };
 
-#endif // SIMULATOR_COMMAND_LINE_DATA_H

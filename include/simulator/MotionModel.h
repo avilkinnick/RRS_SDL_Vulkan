@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_MOTION_MODEL_H
-#define SIMULATOR_MOTION_MODEL_H
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -53,5 +52,3 @@ private:
     std::vector<TrainInitializationInfo> train_initialization_infos;
     std::unique_ptr<Topology> topology;
 };
-
-#endif // SIMULATOR_MOTION_MODEL_H

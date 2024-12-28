@@ -1,5 +1,4 @@
-#ifndef CONFIG_FILE_H
-#define CONFIG_FILE_H
+#pragma once
 
 #include <pugixml.hpp>
 
@@ -51,4 +50,3 @@ void ConfigFile::for_each(const char* property_name, F function)
     }
 }
 
-#endif // CONFIG_FILE_H

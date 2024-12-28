@@ -1,5 +1,4 @@
-#ifndef SDL_WRAPPERS_SDL_INSTANCE_H
-#define SDL_WRAPPERS_SDL_INSTANCE_H
+#pragma once
 
 #include <SDL_stdinc.h>
 
@@ -9,5 +8,3 @@ public:
     explicit SdlInstance(Uint32 flags);
     ~SdlInstance();
 };
-
-#endif // SDL_WRAPPERS_SDL_INSTANCE_H

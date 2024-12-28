@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_TOPOLOGY_TOPOLOGY_H
-#define SIMULATOR_TOPOLOGY_TOPOLOGY_H
+#pragma once
 
 #include <string>
 #include <string_view>
@@ -17,4 +16,3 @@ private:
     std::vector<std::vector<ModuleDescriptor>> load_topology_configs(std::string_view route_path);
 };
 
-#endif // SIMULATOR_TOPOLOGY_TOPOLOGY_H

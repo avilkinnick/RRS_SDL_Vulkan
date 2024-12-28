@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_TRAIN_INITIALIZATION_INFO_H
-#define SIMULATOR_TRAIN_INITIALIZATION_INFO_H
+#pragma once
 
 #include "simulator/Solver.h"
 
@@ -20,4 +19,3 @@ struct TrainInitializationInfo
     Solver solver;
 };
 
-#endif // SIMULATOR_TRAIN_INITIALIZATION_INFO_H

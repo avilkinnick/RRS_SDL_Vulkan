@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_TOPOLOGY_TRACK_H
-#define SIMULATOR_TOPOLOGY_TRACK_H
+#pragma once
 
 #include <glm/ext/vector_double3.hpp>
 
@@ -26,4 +25,3 @@ public:
     double railway_coordinate2 = 0.0;
 };
 
-#endif // SIMULATOR_TOPOLOGY_TRACK_H

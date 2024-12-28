@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_APPLICATION_H
-#define SIMULATOR_APPLICATION_H
+#pragma once
 
 struct CommandLineData;
 class MotionModel;
@@ -19,4 +18,3 @@ private:
     std::unique_ptr<MotionModel> motion_model;
 };
 
-#endif // SIMULATOR_APPLICATION_H

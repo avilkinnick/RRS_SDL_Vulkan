@@ -1,5 +1,4 @@
-#ifndef SIMULATOR_TOPOLOGY_TRAJECTORY_H
-#define SIMULATOR_TOPOLOGY_TRAJECTORY_H
+#pragma once
 
 #include "simulator/topology/Track.h"
 
@@ -23,5 +22,3 @@ private:
     double length = 0.0;
     std::vector<Track> tracks;
 };
-
-#endif // SIMULATOR_TOPOLOGY_TRAJECTORY_H
