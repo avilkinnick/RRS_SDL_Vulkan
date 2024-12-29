@@ -9,15 +9,13 @@
 ConfigFile::ConfigFile(std::string_view path)
     : path(path)
 {
-    pugi::xml_document doc;
-
-    pugi::xml_parse_result result = doc.load_file(path.data());
+    pugi::xml_parse_result result = document.load_file(path.data());
     if (!result)
     {
         throw std::runtime_error(std::string("Failed to load \"") + path.data() + '\"');
     }
 
-    main_section = doc.child("Config");
+    main_section = document.child("Config");
     if (!main_section)
     {
         throw std::runtime_error(std::string("Failed to find \"Config\" section in \"") + path.data() + '\"');

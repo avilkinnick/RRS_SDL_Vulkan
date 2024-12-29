@@ -96,7 +96,10 @@ if(WIN32)
         ${PUGIXML_SOURCES}/pugixml.hpp
     )
 
-    target_include_directories(RRS PRIVATE ${PUGIXML_SOURCES})
+    target_include_directories(RRS PRIVATE
+        ${DEPENDENCIES_DIR}
+        ${PUGIXML_SOURCES}
+    )
 endif()
 
 if(UNIX)

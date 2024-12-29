@@ -26,6 +26,7 @@ private:
 
 private:
     std::string path;
+    pugi::xml_document document;
     pugi::xml_node main_section;
     pugi::xml_node current_section;
 };

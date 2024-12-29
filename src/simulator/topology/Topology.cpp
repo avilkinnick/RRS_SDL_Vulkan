@@ -63,10 +63,10 @@ std::vector<std::string> Topology::get_trajectory_names(std::string_view route_p
     std::vector<std::string> trajectory_names;
     for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(path))
     {
-        if (entry.path().extension() == ".traj")
+        if (entry.path().extension().string() == ".traj")
         {
-            logger.log_info("Found trajectory \"%s\"", entry.path().filename().c_str());
-            trajectory_names.emplace_back(entry.path().stem());
+            logger.log_info("Found trajectory \"%s\"", entry.path().filename().string().c_str());
+            trajectory_names.emplace_back(entry.path().stem().string());
         }
     }
 
@@ -85,24 +85,25 @@ std::vector<std::vector<ModuleDescriptor>> Topology::load_topology_configs(std::
     {
         constexpr const char* trajectory_directory_regex_string = R"(^trajectory-\w+)";
         std::regex trajectory_directory_regex(trajectory_directory_regex_string);
-        if (entry1.is_directory() && std::regex_match(entry1.path().stem().c_str(), trajectory_directory_regex))
+        if (entry1.is_directory() && std::regex_match(entry1.path().stem().string().c_str(), trajectory_directory_regex))
         {
             std::vector<ModuleDescriptor> all_configs;
-            for (const std::filesystem::directory_entry& entry2 : std::filesystem::directory_iterator(entry1.path()))
+            for (const std::filesystem::directory_entry& entry2
+                : std::filesystem::directory_iterator(entry1.path().string()))
             {
-                if (entry2.path().extension() == ".xml")
+                if (entry2.path().extension().string() == ".xml")
                 {
                     const auto& config_path = entry2.path();
 
                     ModuleDescriptor module_descriptor;
-                    module_descriptor.name = config_path.stem();
+                    module_descriptor.name = config_path.stem().string();
 
-                    ConfigFile config_file(config_path.c_str());
+                    ConfigFile config_file(config_path.string().c_str());
                     config_file.for_each("Trajectory", [&]() {
                         std::string trajectory_name = config_file.read<std::string>("Name");
                         if (trajectory_name.empty())
                         {
-                            logger.log_warn("Empty trajectory name at \"%s\"", config_path.c_str());
+                            logger.log_warn("Empty trajectory name at \"%s\"", config_path.string().c_str());
                         }
                         else
                         {
@@ -112,7 +113,7 @@ std::vector<std::vector<ModuleDescriptor>> Topology::load_topology_configs(std::
 
                     if (module_descriptor.trajectory_names.empty())
                     {
-                        logger.log_warn("No trajectories found in \"%s\"", config_path.c_str());
+                        logger.log_warn("No trajectories found in \"%s\"", config_path.string().c_str());
                     }
                     else
                     {
@@ -123,7 +124,7 @@ std::vector<std::vector<ModuleDescriptor>> Topology::load_topology_configs(std::
 
             if (all_configs.empty())
             {
-                logger.log_warn("No trajectories found in files at \"%s\"", entry1.path().c_str());
+                logger.log_warn("No trajectories found in files at \"%s\"", entry1.path().string().c_str());
             }
             else
             {
